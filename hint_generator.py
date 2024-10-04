@@ -1,6 +1,7 @@
 import os
 import google.generativeai as genai
 from dotenv import load_dotenv
+import ollama
 
 load_dotenv()
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
@@ -40,6 +41,11 @@ class HintGenerator:
         response = model.generate_content(prompt)
         return response.text
 
+    def generate_hint_ollama(self,topic, problem, last_valid_step, answer, invalid_step):
+        prompt = self.prompt(topic, problem, last_valid_step, answer, invalid_step)
+        response = ollama.generate(model="llama3.2", prompt=prompt)
+        return response["response"]
+
 if __name__=="__main__":
     topic = "Solve the linear equation"
     problem = "2x + 3 = 11"
@@ -47,7 +53,7 @@ if __name__=="__main__":
     answer = "x = 4"
     invalid_step = "2x + 3 - 3 = 11"
     generate_hint = HintGenerator()
-    hint = generate_hint.generate_hint(topic, problem, last_valid_step, answer, invalid_step)
+    hint = generate_hint.generate_hint_ollama(topic, problem, last_valid_step, answer, invalid_step)
     print(hint)
 
 
