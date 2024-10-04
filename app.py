@@ -5,7 +5,7 @@ from validation_engine import MathValidation
 from sympy import latex
 from hint_generator import HintGenerator
 
-st.sidebar.image("logo.png", width=300)
+st.sidebar.image("logo2.png", width=300)
 st.sidebar.divider()
 
 equations_book = ["2x + 3 = 11",
@@ -16,21 +16,22 @@ equations_book = ["2x + 3 = 11",
                   "3x + 5 - 20 = 0",
                   "3x - 7 = 2",
                   "3x - 2 = 2(x - 6)",
-                  "(4x - 7)/5 + 1 = -2"]
+                  "(4x - 7)/5 + 1 = -2",
+                  "2x + 3(x + 4) = 422"]
 
 
-modules = st.sidebar.selectbox("Please the modules", ["Solve for Linear Equation",
-                                                      "Solve for Inequalities"])
+modules = st.sidebar.selectbox("**Please the modules:**", ["Solve for Linear Equation",
+                                                           "Solve for Inequalities"])
 
 if modules=="Solve for Linear Equation":
     on_hint_service = st.toggle("**Use AI Hint**")
 
-    problem = st.sidebar.selectbox("Please select equation to solve:", equations_book)
+    problem = st.sidebar.selectbox("**Please select equation to solve:**", equations_book)
 
-    model_choice = st.sidebar.radio("", ["Gemini", "Ollama"], index=1, horizontal=True)
+    model_choice = st.sidebar.radio("**AI Model:**", ["Gemini", "Ollama"], index=1, horizontal=True)
 
     problem_description = "Solve linear equation in one variable"
-    page_title(title=problem_description, color="yellow")
+    page_title(title=problem_description, color="yellow", size="h2")
 
     if problem is not None:
         page_title(title=problem, color="#40E0D0")
